@@ -16,6 +16,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
 import { RequireAuth } from "./Components/RequiredAuth/RequiredAuth";
 import {Revenue} from "./Containers/RevenuePage/RevenuePage";
+import {Sellers} from "./Containers/SellersPage/SellersPage";
 
 export const App = () => {
 
@@ -43,8 +44,13 @@ export const App = () => {
                         <RequireAuth>
                             <Revenue/>
                         </RequireAuth>
+
                     }/>
-                    }
+                    <Route path="/sellers" element={
+                        <RequireAuth>
+                            <Sellers/>
+                        </RequireAuth>
+                    }/>
                     <Route path="/add-arendator" element={<RequireAuth>
                         <AddArendatorPage />
                     </RequireAuth>} />

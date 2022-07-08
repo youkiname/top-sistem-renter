@@ -2,7 +2,7 @@ import React from 'react';
 import {HeaderPage} from "../../Components/HeaderPage/HeaderPage";
 import styled from "styled-components";
 import {Tabs} from "antd";
-import {RevenueTable} from "../../Components/RevenueTable/RevenueTable";
+import {SellersTable} from "../../Components/SellersTable/SellersTable";
 
 const {TabPane} = Tabs
 
@@ -11,7 +11,7 @@ const TableDiv = styled.div`
   background-color: #fff;
 `;
 
-export const Revenue = () => {
+export const Sellers = () => {
     return (
         <>
             <div style={{backgroundColor: "#FFF", marginTop: -48, marginBottom: 24}}>
@@ -28,7 +28,7 @@ export const Revenue = () => {
                     }}
                 >
                     <TabPane key="1">
-                        <RevenueTable />
+                        <SellersTable />
                     </TabPane>
 
                 </Tabs>

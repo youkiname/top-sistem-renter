@@ -133,8 +133,11 @@ export class ApiController extends BaseController {
         return this.instance.get(`shops/categories`)
     }
 
-    getCities() {
+    getProducts() {
         return this.instance.get(`cities`)
+    }
+    getManagement(){
+        return this.instance.get('cities')
     }
 
     savePoll(data) {

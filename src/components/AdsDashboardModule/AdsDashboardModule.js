@@ -6,12 +6,12 @@ const { Title } = Typography
 
 const columns = [
     {
-        title: 'Наименование',
+        title: 'Дата',
         dataIndex: 'name',
         key: 'name',
     },
     {
-        title: 'Арендатор',
+        title: 'Сумма чека',
         dataIndex: 'shop',
         key: 'shop',
         render: shop => {
@@ -21,12 +21,12 @@ const columns = [
         }
     },
     {
-        title: 'Комментарий',
+        title: 'Кэшбек',
         dataIndex: 'comment',
         key: 'comment',
     },
     {
-        title: 'Статус',
+        title: 'Продавец',
         dataIndex: 'is_active',
         key: 'is_active',
         render: is_active => {
@@ -44,7 +44,7 @@ const AdsDashboardModule = () => {
     }, [])
     return (
         <div style={{ width: '100%' }}>
-            <Title level={5}>Реклама</Title>
+            <Title level={5}>Транзакции</Title>
             <Divider style={{ margin: '10px 0' }} />
             <Table size='small' pagination={{ defaultPageSize: 5 }} dataSource={data} columns={columns} />
         </div>

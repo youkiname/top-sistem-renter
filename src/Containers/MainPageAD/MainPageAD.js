@@ -23,7 +23,9 @@ export const MainPageAD = () => {
                     <BlockModule>
                         <TotalSalesIndicator/>
                     </BlockModule>
+
                 </Col>
+
                 <Col>
                     <BlockModule>
                         <VisitorsCountIndicator/>
@@ -35,13 +37,19 @@ export const MainPageAD = () => {
                     </BlockModule>
                 </Col>
             </Row>
-            <Row style={{marginTop: 24}} gutter={[24, 60]}>
-                <Col span={12}>
-                    <BlockModule fullWidth style={{marginTop: 24}}>
+            <Row>
+                <Col span={12}  style={{marginTop: 24}} >
+                    <BlockModule fullWidth >
+                        <AdsDashboardModule/>
+                    </BlockModule>
+                </Col>
+                <Col span={12} style={{marginTop: 24}}>
+                    <BlockModule fullWidth>
                         <VisitorsDashboardModule/>
                     </BlockModule>
                 </Col>
             </Row>
+
 
 
         </>

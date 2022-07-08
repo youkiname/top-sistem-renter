@@ -27,7 +27,7 @@ const BaseTCPage = () => {
                         marginBottom: 32,
                     }}
                 >
-                    <TabPane tab="Клиентская база" key="1">
+                    <TabPane key="1">
                         <ClientBaseTable />
                     </TabPane>
 

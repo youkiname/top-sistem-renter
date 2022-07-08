@@ -66,7 +66,7 @@ const ArendatorsBaseTable = () => {
                         }}
                     />
                     <Button icon={<FileExcelOutlined />}>Выгрузить в Excel</Button>
-                    <Button type="primary" icon={<PlusOutlined />}>Добавить арендатора</Button>
+                    <Button type="primary" icon={<PlusOutlined />}>Добавить продавца</Button>
                 </Col>
             </Row>
             <Spin spinning={loading}>

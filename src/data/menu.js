@@ -2,7 +2,7 @@ import {
     AreaChartOutlined,
     DashboardOutlined,
     LaptopOutlined,
-    NotificationOutlined, TableOutlined, TeamOutlined, UnorderedListOutlined,
+    NotificationOutlined, TableOutlined, TeamOutlined, UsergroupAddOutlined, ProfileOutlined,
     UserOutlined
 } from "@ant-design/icons";
 import React from "react";
@@ -40,16 +40,22 @@ export const menuData = [
         path: 'base-tc'
     },
     {
-        icon: React.createElement(TableOutlined),
+        icon: React.createElement(ProfileOutlined),
         key: 'revenue',
         label: 'Выручка',
         path: 'revenue'
     },
 
     {
-        icon: React.createElement(TeamOutlined),
+        icon: React.createElement(UsergroupAddOutlined),
         key: 'arendator',
         label: 'Продавцы',
         path: 'add-arendator'
-    }
+    },
+    {
+        icon: React.createElement(TeamOutlined),
+        key: 'sellers',
+        label: 'Таблица продавцов',
+        path: 'sellers'
+    },
 ]

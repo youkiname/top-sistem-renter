@@ -15,7 +15,7 @@ export const VisitorsCountIndicator = () => {
 
     return (
         <div>
-            <Statistic title="Посетители за месяц" value={month?.amount}/>
+            <Statistic title="Транзакции за месяц" value={month?.amount}/>
             <TinyArea
                 height={60}
                 width={230}

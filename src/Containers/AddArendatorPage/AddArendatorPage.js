@@ -68,7 +68,7 @@ const AddArendatorPage = () => {
     return (
         <>
             <div style={{ backgroundColor: "#FFF", marginTop: -48, marginBottom: 24 }}>
-                <HeaderPage title="Добавить арендатора" />
+                <HeaderPage title="Добавить продавца" />
             </div>
 
             <TableDiv>
@@ -87,7 +87,7 @@ const AddArendatorPage = () => {
                 >
 
                     <Form.Item
-                        label="Название организации"
+                        label="Имя"
                         name="organizationName"
                         rules={[
                             {
@@ -96,14 +96,14 @@ const AddArendatorPage = () => {
                             },
                         ]}
                     >
-                        <Input placeholder="ООО “Иванов”"
+                        <Input placeholder="Иван"
                             value={name}
                             onChange={e => setName(e.target.value)}
                         />
                     </Form.Item>
 
                     <Form.Item
-                        label="Руководитель"
+                        label="Фамилия"
                         name="director"
                         rules={[
                             {
@@ -112,19 +112,19 @@ const AddArendatorPage = () => {
                             },
                         ]}
                     >
-                        <Input placeholder="Иванов Иван Иванович"
+                        <Input placeholder="Иванов"
                             value={renterName}
                             onChange={e => setRenterName(e.target.value)}
                         />
                     </Form.Item>
 
                     <Form.Item
-                        label="Телефон для связи"
+                        label="Номер телефона"
                         name="phone"
                         rules={[
                             {
                                 required: true,
-                                message: 'Введите номер телефона для связи',
+                                message: 'Номер телефона для связи',
                             },
                         ]}
                     >
@@ -133,41 +133,6 @@ const AddArendatorPage = () => {
                             onChange={e => setRenterPhone(e.target.value)}
                         />
                     </Form.Item>
-
-                    <Form.Item
-                        label="Логотип"
-                        name="logo"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Добавьте ваш логотип',
-                            },
-                        ]}
-                    >
-                        <Upload {...propsUpload}>
-                            <Button icon={<UploadOutlined />}>Добавить логотип</Button>
-                        </Upload>
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Категория"
-                        name="category"
-                    >
-                        <Select
-                            style={{
-                                width: 250,
-                            }}
-                            value={categoryId}
-                            onChange={id => setCategoryId(id)}
-                        >
-                            {
-                                categories.map(category => (
-                                    <Option value={category.id} key={category.id}>{category.name}</Option>
-                                ))
-                            }
-                        </Select>
-                    </Form.Item>
-
                     <Form.Item
                         label="E-mail"
                         name="email"
@@ -198,12 +163,26 @@ const AddArendatorPage = () => {
                             onChange={e => setRenterPassword(e.target.value)}
                         />
                     </Form.Item>
+                    <Form.Item
+                        label="Повторите пароль"
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Введите пароль',
+                            },
+                        ]}
+                    >
+                        <Input.Password value={renterPassword}
+                                        onChange={e => setRenterPassword(e.target.value)}
+                        />
+                    </Form.Item>
 
                     <Row justify="center">
                         <Col span={24}>
                             <Form.Item style={{ margin: '0 auto' }}>
                                 <Button type="primary" htmlType="submit" onClick={onSubmit}>
-                                    Создать арендатора
+                                    Создать продавца
                                 </Button>
                             </Form.Item>
                         </Col>

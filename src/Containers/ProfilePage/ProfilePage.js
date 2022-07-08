@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
 import styled from "styled-components";
-import { Button, Col, Form, Input, Row, Select, Upload, message } from "antd";
+import { Button, Col, Form, Input, Row, Select,DatePicker, message } from "antd";
 import { authController } from "../../api";
 import { apiController } from "../../api";
 
@@ -14,17 +14,22 @@ const TableDiv = styled.div`
 
 const ProfilePage = () => {
     const [currentUser, setCurrentUser] = React.useState({})
-    const [cities, setCities] = React.useState([])
+    const [products, setProducts] = React.useState([])
     const [shoppingCenterName, setShoppingCenterName] = React.useState('')
     const [address, setAddress] = React.useState('')
     const [description, setDescription] = React.useState('')
+    const [management, setManagement] = React.useState('')
 
     React.useEffect(() => {
-        apiController.getCities().then(res => {
-            setCities(res.data)
+        apiController.getProducts().then(res => {
+            setProducts(res.data)
         })
         authController.getMe().then(res => {
             setCurrentUser(res.data)
+
+        })
+        apiController.getManagement().then(res =>{
+            setManagement(res.data)
         })
     }, [])
 
@@ -60,22 +65,8 @@ const ProfilePage = () => {
                     onFinishFailed={() => {
                     }}
                 >
-
                     <Form.Item
-                        label="Название организации"
-                        name="organizationName"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Введите название организации',
-                            },
-                        ]}
-                    >
-                        <Input placeholder="ООО “Иванов”" value={shoppingCenterName} onChange={e => setShoppingCenterName(e.target.value)} />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Руководитель"
+                        label="Арендадатор"
                         name="director"
                         rules={[
                             {
@@ -100,65 +91,47 @@ const ProfilePage = () => {
                         <Input placeholder="+7 999 999 99 99" value={currentUser.phone} onChange={e => setCurrentUser({ ...currentUser, phone: e.target.value })} />
                     </Form.Item>
 
-                    {/* <Form.Item
-                        label="Логотип"
-                        name="logo"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Добавьте ваш логотип',
-                            },
-                        ]}
-                    >
-                        <Upload {...propsForLogo}>
-                            <Button icon={<UploadOutlined />}>Добавить логотип</Button>
-                        </Upload>
-                    </Form.Item> */}
-
                     <Form.Item
-                        label="Город"
-                        name="city"
+                        label="Категория"
+                        name="products"
                     >
                         <Select
                             style={{ width: 250 }}
                         >
                             {
-                                cities.map(city => (
-                                    <Option value={city.id} key={city.id}>{city.name}</Option>
+                                products.map(product => (
+                                    <Option value={product.id} key={product.id}>{product.name}</Option>
                                 ))
                             }
                         </Select>
                     </Form.Item>
-
                     <Form.Item
-                        label="Адрес"
-                        name="address"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Введите адрес',
-                            },
-                        ]}
+                        label="Оформление"
+                        name="products"
                     >
-                        <Input placeholder="г. Москва, ул. Ленина, 123, корп. 2"
-                            value={address}
-                            onChange={e => setAddress(e.target.value)} />
+                        <Select
+                            placeholder="Самозанятый, ИП, ООО"
+                            style={{ width: 250 }}
+                        >
+                            {
+                                products.map(product => (
+                                    <Option value={product.id} key={product.id}>{product.name}</Option>
+                                ))
+                            }
+                        </Select>
                     </Form.Item>
-
                     <Form.Item
-                        label="Описание"
-                        name="description"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Введите описание торгового центра',
-                            },
-                        ]}
-                    >
-                        <Input.TextArea rows={4}
-                            value={description}
-                            onChange={e => setDescription(e.target.value)}
-                        />
+                        label = "Дата рождения"
+                        name = "birthDate"
+                        rules = {[
+                        {
+                            required: true,
+                            message: 'Введите дату рождения',
+                        },
+                    ]}
+                        >
+                            <DatePicker placeholder ="Введите дату"
+                            />
                     </Form.Item>
 
                     <Row justify="center">

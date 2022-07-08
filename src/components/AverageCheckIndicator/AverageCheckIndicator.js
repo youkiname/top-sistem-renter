@@ -25,7 +25,7 @@ const AverageCheckIndicator = () => {
     return (
 
         <div>
-            <Statistic title="Средний чек по ТЦ за месяц" value={`${data?.amount?.toFixed(0)} ₽`} />
+            <Statistic title="Средний чек   " value={`${data?.amount?.toFixed(0)} ₽`} />
             <TinyArea
                 height={69}
                 width={230}
