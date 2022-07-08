@@ -1,0 +1,18 @@
+/*TotalSalesIndicator*/
+.total-sales-ind__row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/*transactions-table*/
+.transactions-table__round {
+    height: 20px;
+    width: 20px;
+    background-color: #FF4D4F;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
