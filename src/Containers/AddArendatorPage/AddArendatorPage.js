@@ -1,7 +1,7 @@
 import React from 'react';
-import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
+import { HeaderPage } from "../../components/HeaderPage/HeaderPage";
 import styled from "styled-components";
-import {Button, Col, Form, Input, Row, message, DatePicker} from "antd";
+import { Button, Col, Form, Input, Row, message, DatePicker } from "antd";
 import { useNavigate } from "react-router-dom";
 import { apiController } from "../../api";
 
@@ -19,7 +19,7 @@ const AddArendatorPage = () => {
     const [Phone, setPhone] = React.useState()
     const [Email, setEmail] = React.useState()
     const [Password, setPassword] = React.useState()
-    const [renterConfirmPassword,setRenterConfirmPassword] = React.useState()
+    const [renterConfirmPassword, setRenterConfirmPassword] = React.useState()
     const [avatar, setAvatar] = React.useState(null)
     const [birthdate, setBirthDate] = React.useState()
     const propsUpload = {
@@ -42,11 +42,11 @@ const AddArendatorPage = () => {
     const onSubmit = () => {
         let imageForm = new FormData();
         imageForm.append('avatar', avatar);
-
+        console.log(birthdate)
         apiController.saveRenter({
-            first_name : firstName,
-            second_name : secondName,
-            mobile : Phone,
+            first_name: firstName,
+            last_name: secondName,
+            mobile: Phone,
             email: Email,
             password: Password,
             birth_date: birthdate,
@@ -150,8 +150,8 @@ const AddArendatorPage = () => {
                         ]}
                     >
                         <DatePicker placeholder="Дата рождения"
-                               value={birthdate}
-                               onChange={e => setBirthDate(e.target.value)}
+                            value={birthdate}
+                            onChange={e => setBirthDate(e.toISOString().split('T')[0])}
                         />
                     </Form.Item>
                     <Form.Item

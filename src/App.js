@@ -14,9 +14,9 @@ import {
 } from "./Containers";
 import './App.css'
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
-import { RequireAuth } from "./Components/RequiredAuth/RequiredAuth";
-import {Revenue} from "./Containers/RevenuePage/RevenuePage";
-import {Sellers} from "./Containers/SellersPage/SellersPage";
+import { RequireAuth } from "./components/RequiredAuth/RequiredAuth";
+import { Revenue } from "./Containers/RevenuePage/RevenuePage";
+import { Sellers } from "./Containers/SellersPage/SellersPage";
 
 export const App = () => {
 
@@ -42,15 +42,15 @@ export const App = () => {
                     } />
                     <Route path="/revenue" element={
                         <RequireAuth>
-                            <Revenue/>
+                            <Revenue />
                         </RequireAuth>
 
-                    }/>
+                    } />
                     <Route path="/sellers" element={
                         <RequireAuth>
-                            <Sellers/>
+                            <Sellers />
                         </RequireAuth>
-                    }/>
+                    } />
                     <Route path="/add-arendator" element={<RequireAuth>
                         <AddArendatorPage />
                     </RequireAuth>} />

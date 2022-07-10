@@ -1,10 +1,10 @@
 import React from 'react';
-import {HeaderPage} from "../../Components/HeaderPage/HeaderPage";
+import { HeaderPage } from "../../components/HeaderPage/HeaderPage";
 import styled from "styled-components";
-import {Tabs} from "antd";
-import {SellersTable} from "../../Components/SellersTable/SellersTable";
+import { Tabs } from "antd";
+import { SellersTable } from "../../components/SellersTable/SellersTable";
 
-const {TabPane} = Tabs
+const { TabPane } = Tabs
 
 const TableDiv = styled.div`
   padding: 24px;
@@ -14,8 +14,8 @@ const TableDiv = styled.div`
 export const Sellers = () => {
     return (
         <>
-            <div style={{backgroundColor: "#FFF", marginTop: -48, marginBottom: 24}}>
-                <HeaderPage title="Выручка"/>
+            <div style={{ backgroundColor: "#FFF", marginTop: -48, marginBottom: 24 }}>
+                <HeaderPage title="Выручка" />
             </div>
 
             <TableDiv>

@@ -1,7 +1,7 @@
 import React from 'react';
-import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
+import { HeaderPage } from "../../components/HeaderPage/HeaderPage";
 import styled from "styled-components";
-import { Button, Col, Form, Input, Row, Select,DatePicker, message } from "antd";
+import { Button, Col, Form, Input, Row, Select, DatePicker, message } from "antd";
 import { authController } from "../../api";
 import { apiController } from "../../api";
 
@@ -28,7 +28,7 @@ const ProfilePage = () => {
             setCurrentUser(res.data)
 
         })
-        apiController.getManagement().then(res =>{
+        apiController.getManagement().then(res => {
             setManagement(res.data)
         })
     }, [])
@@ -121,17 +121,17 @@ const ProfilePage = () => {
                         </Select>
                     </Form.Item>
                     <Form.Item
-                        label = "Дата рождения"
-                        name = "birthDate"
-                        rules = {[
-                        {
-                            required: true,
-                            message: 'Введите дату рождения',
-                        },
-                    ]}
-                        >
-                            <DatePicker placeholder ="Введите дату"
-                            />
+                        label="Дата рождения"
+                        name="birthDate"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Введите дату рождения',
+                            },
+                        ]}
+                    >
+                        <DatePicker placeholder="Введите дату"
+                        />
                     </Form.Item>
 
                     <Row justify="center">
