@@ -1,12 +1,9 @@
 import React from 'react';
 import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
 import styled from "styled-components";
-import { Button, Col, Form, Input, Row, Select, Upload, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import {Button, Col, Form, Input, Row, message, DatePicker} from "antd";
 import { useNavigate } from "react-router-dom";
-import { apiController } from "../..//api";
-
-const { Option } = Select
+import { apiController } from "../../api";
 
 const TableDiv = styled.div`
   padding: 24px;
@@ -15,22 +12,16 @@ const TableDiv = styled.div`
 
 
 const AddArendatorPage = () => {
+
     const navigate = useNavigate()
-
-    const [categories, setCategories] = React.useState([])
-    const [categoryId, setCategoryId] = React.useState()
-    const [name, setName] = React.useState()
-    const [renterName, setRenterName] = React.useState()
-    const [renterPhone, setRenterPhone] = React.useState()
-    const [renterEmail, setRenterEmail] = React.useState()
-    const [renterPassword, setRenterPassword] = React.useState()
+    const [firstName, setFirstName] = React.useState()
+    const [secondName, setSecondName] = React.useState()
+    const [Phone, setPhone] = React.useState()
+    const [Email, setEmail] = React.useState()
+    const [Password, setPassword] = React.useState()
+    const [renterConfirmPassword,setRenterConfirmPassword] = React.useState()
     const [avatar, setAvatar] = React.useState(null)
-    React.useEffect(() => {
-        apiController.getShopCategories().then(res => {
-            setCategories(res.data)
-        })
-    }, [])
-
+    const [birthdate, setBirthDate] = React.useState()
     const propsUpload = {
         name: 'image',
         multiple: false,
@@ -52,13 +43,13 @@ const AddArendatorPage = () => {
         let imageForm = new FormData();
         imageForm.append('avatar', avatar);
 
-        apiController.saveShop({
-            name,
-            category_id: categoryId,
-            renter_name: renterName,
-            renter_phone: renterPhone,
-            renter_email: renterEmail,
-            renter_password: renterPassword,
+        apiController.saveRenter({
+            first_name : firstName,
+            second_name : secondName,
+            mobile : Phone,
+            email: Email,
+            password: Password,
+            birth_date: birthdate,
         }, imageForm).then(res => {
             navigate("/base-tc")
         });
@@ -97,8 +88,8 @@ const AddArendatorPage = () => {
                         ]}
                     >
                         <Input placeholder="Иван"
-                            value={name}
-                            onChange={e => setName(e.target.value)}
+                            value={firstName}
+                            onChange={e => setFirstName(e.target.value)}
                         />
                     </Form.Item>
 
@@ -113,8 +104,8 @@ const AddArendatorPage = () => {
                         ]}
                     >
                         <Input placeholder="Иванов"
-                            value={renterName}
-                            onChange={e => setRenterName(e.target.value)}
+                            value={secondName}
+                            onChange={e => setSecondName(e.target.value)}
                         />
                     </Form.Item>
 
@@ -129,8 +120,8 @@ const AddArendatorPage = () => {
                         ]}
                     >
                         <Input placeholder="+7 999 999 99 99"
-                            value={renterPhone}
-                            onChange={e => setRenterPhone(e.target.value)}
+                            value={Phone}
+                            onChange={e => setPhone(e.target.value)}
                         />
                     </Form.Item>
                     <Form.Item
@@ -144,11 +135,25 @@ const AddArendatorPage = () => {
                         ]}
                     >
                         <Input placeholder="mail@mail.ru"
-                            value={renterEmail}
-                            onChange={e => setRenterEmail(e.target.value)}
+                            value={Email}
+                            onChange={e => setEmail(e.target.value)}
                         />
                     </Form.Item>
-
+                    <Form.Item
+                        label="Дата рождения"
+                        name="birth_date"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Введите дату рождения',
+                            },
+                        ]}
+                    >
+                        <DatePicker placeholder="Дата рождения"
+                               value={birthdate}
+                               onChange={e => setBirthDate(e.target.value)}
+                        />
+                    </Form.Item>
                     <Form.Item
                         label="Пароль"
                         name="password"
@@ -159,24 +164,24 @@ const AddArendatorPage = () => {
                             },
                         ]}
                     >
-                        <Input.Password value={renterPassword}
-                            onChange={e => setRenterPassword(e.target.value)}
+                        <Input.Password value={Password}
+                            onChange={e => setPassword(e.target.value)}
                         />
                     </Form.Item>
-                    <Form.Item
-                        label="Повторите пароль"
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Введите пароль',
-                            },
-                        ]}
-                    >
-                        <Input.Password value={renterPassword}
-                                        onChange={e => setRenterPassword(e.target.value)}
-                        />
-                    </Form.Item>
+                    {/*<Form.Item*/}
+                    {/*    label="Повторите пароль"*/}
+                    {/*    name="password"*/}
+                    {/*    rules={[*/}
+                    {/*        {*/}
+                    {/*            required: true,*/}
+                    {/*            message: 'Повторите пароль',*/}
+                    {/*        },*/}
+                    {/*    ]}*/}
+                    {/*>*/}
+                    {/*    <Input.Password value={renterConfirmPassword}*/}
+                    {/*                    onChange={e => setRenterConfirmPassword(e.target.value)}*/}
+                    {/*    />*/}
+                    {/*</Form.Item>*/}
 
                     <Row justify="center">
                         <Col span={24}>
@@ -193,5 +198,6 @@ const AddArendatorPage = () => {
         </>
     );
 };
+
 
 export { AddArendatorPage };

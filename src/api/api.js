@@ -130,7 +130,7 @@ export class ApiController extends BaseController {
     }
 
     getShopCategories() {
-        return this.instance.get(`shops/categories`)
+        return this.instance.get(`sellers`)
     }
 
     getProducts() {
@@ -146,8 +146,8 @@ export class ApiController extends BaseController {
         })
     }
 
-    saveShop(data, avatarForm) {
-        return this.instance.post(`shops`, avatarForm, {
+    saveRenter(data, avatarForm) {
+        return this.instance.post(`sellers`, avatarForm, {
             params: data
         })
     }
