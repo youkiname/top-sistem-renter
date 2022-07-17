@@ -13,7 +13,7 @@ export class AuthController extends BaseController {
         return this.instance.get(`auth/renter`, { params })
     }
     getMe() {
-        return this.instance.get(`me/admin`)
+        return this.instance.get(`get_me`)
     }
     logout() {
         return this.instance.post(`logout`)

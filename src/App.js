@@ -21,7 +21,7 @@ import { Sellers } from "./Containers/SellersPage/SellersPage";
 export const App = () => {
 
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/renter">
             <MainLayout>
                 <Routes>
                     <Route path="/" exact element={
