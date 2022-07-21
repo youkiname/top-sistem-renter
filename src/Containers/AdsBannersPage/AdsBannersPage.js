@@ -1,8 +1,8 @@
 import React from 'react';
-import { HeaderPage } from "../../components/HeaderPage/HeaderPage";
+import {HeaderPage} from "../../Components/HeaderPage/HeaderPage";
 import { Button, Col, Row, Typography } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { AdsBannersTable } from '../../components/AdsBannersTable/AdsBannersTable';
+import {AdsBannersTable} from "../../Components/AdsBannersTable/AdsBannersTable";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 

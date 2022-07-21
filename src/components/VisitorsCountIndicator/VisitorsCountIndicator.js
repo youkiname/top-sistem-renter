@@ -3,16 +3,13 @@ import {Divider, Statistic} from "antd";
 import {CaretUpOutlined} from "@ant-design/icons";
 import {Typography} from "antd";
 import {TinyArea} from '@ant-design/plots';
-import {useDispatch,useSelector} from "react-redux";
-import {getVisitorCountIndicator} from "../../store/slices";
+import {useSelector} from "react-redux";
 import {selectVisitorCountIndicator} from "./selectors";
 
 const {Text} = Typography
 
 export const VisitorsCountIndicator = () => {
     const {day, month, visitors} = useSelector(selectVisitorCountIndicator)
-
-
     return (
         <div>
             <Statistic title="Транзакции за месяц" value={month?.amount}/>
@@ -26,7 +23,7 @@ export const VisitorsCountIndicator = () => {
                 data={visitors}/>
             <Divider style={{margin: '8px 0'}}/>
             <div className="total-sales-ind__row">
-                <Text>Посетители сегодня {day?.amount} </Text>
+                <Text>Транзакции за сегодня {day?.amount} </Text>
                 <CaretUpOutlined style={{color: '#52c41a'}}/>
             </div>
         </div>
