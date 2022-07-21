@@ -1,8 +1,9 @@
 import React from 'react';
-import { Typography, Col, Row, Button, Table, Spin , Radio} from "antd";
+import { Typography, Col, Row, Button, Table, Spin } from "antd";
 import Search from "antd/es/input/Search";
 import { FileExcelOutlined } from "@ant-design/icons";
 import { apiController } from "../../api";
+import { CSV } from "../../csv/csv";
 
 const { Title } = Typography
 
@@ -43,8 +44,8 @@ const columns = [
 
 export const SellersTable = () => {
     const [loading, setLoading] = React.useState(true)
-    const [data, setData] = React.useState([])
-    const [searched, setSearched] = React.useState([])
+    const [data, setData] = React.useState([() => { return [] }])
+    const [searched, setSearched] = React.useState(() => { return [] })
 
     React.useEffect(() => {
         apiController.getSellers().then(res => {
@@ -53,14 +54,20 @@ export const SellersTable = () => {
             setLoading(false)
         })
     }, [])
+
     const onSearch = (e) => {
         const query = e
-        function isIncludes(customer) {
-            return customer.full_name.includes(query)
+        function isIncludes(seller) {
+            return seller.full_name.toLowerCase().includes(query.toLowerCase())
         }
         setSearched(data.filter(isIncludes))
         setLoading(false)
     }
+
+    const downloadCsv = () => {
+        CSV.download(columns, searched)
+    }
+
     return (
         <>
 
@@ -79,11 +86,15 @@ export const SellersTable = () => {
                             width: 300,
                         }}
                     />
-                    <Button icon={<FileExcelOutlined />}>Выгрузить в Excel</Button>
+                    <Button icon={<FileExcelOutlined />} onClick={downloadCsv}>Выгрузить в Excel</Button>
                 </Col>
             </Row>
             <Spin spinning={loading}>
-                <Table columns={columns} dataSource={searched} style={{ marginTop: 30 }} />
+                <Table
+                    rowKey="id"
+                    columns={columns}
+                    dataSource={searched}
+                    style={{ marginTop: 30 }} />
             </Spin>
         </>
     );

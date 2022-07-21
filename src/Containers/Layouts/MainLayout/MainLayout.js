@@ -2,7 +2,7 @@ import { Avatar, Layout, Menu, Space, Typography, Button } from 'antd';
 import React from 'react';
 import './MainLayout.css'
 import { menuData } from "../../../data/menu";
-import {Logo} from "../../../Components/Logo/Logo";
+import { Logo } from "../../../components/Logo/Logo";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { authController } from "../../../api";
@@ -15,7 +15,7 @@ export const MainLayout = ({ children }) => {
     const navigate = useNavigate()
 
     const logout = () => {
-        localStorage.removeItem('auth');
+        localStorage.removeItem('token-renter');
         authController.logout();
         navigate('/auth');
     }

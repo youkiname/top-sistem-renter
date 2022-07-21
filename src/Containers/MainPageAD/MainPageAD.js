@@ -1,14 +1,13 @@
 import React from 'react';
-import {TotalSalesIndicator} from "../../Components/TotalSalesIndicator/TotalSalesIndicator";
-import {BlockModule} from "../../Components/BlockModule/BlockModule";
-import {Col, Row} from "antd";
-import {VisitorsCountIndicator} from "../../Components/VisitorsCountIndicator/VisitorsCountIndicator";
-import {AverageCheckIndicator} from "../../Components/AverageCheckIndicator/AverageCheckIndicator";
-import {VisitorsDashboardModule} from "../../Components/VisitorsDashboardModule/VisitorsDashboardModule";
-import {useDispatch, useSelector} from "react-redux";
-import {getVisitorCountIndicator} from "../../store/slices";
-import {AdsBannersPage} from "../AdsBannersPage/AdsBannersPage";
-import {AdsDashboardModule} from "../../Components/AdsDashboardModule/AdsDashboardModule";
+import { TotalSalesIndicator } from "../../components/TotalSalesIndicator/TotalSalesIndicator";
+import { BlockModule } from "../../components/BlockModule/BlockModule";
+import { Col, Row } from "antd";
+import { VisitorsCountIndicator } from "../../components/VisitorsCountIndicator/VisitorsCountIndicator";
+import { AverageCheckIndicator } from "../../components/AverageCheckIndicator/AverageCheckIndicator";
+import { VisitorsDashboardModule } from "../../components/VisitorsDashboardModule/VisitorsDashboardModule";
+import { useDispatch } from "react-redux";
+import { getVisitorCountIndicator } from "../../store/slices";
+import { AdsDashboardModule } from "../../components/AdsDashboardModule/AdsDashboardModule";
 
 export const MainPageAD = () => {
     const dispatch = useDispatch()
@@ -21,30 +20,30 @@ export const MainPageAD = () => {
             <Row justify="start" gutter={[24, 16]}>
                 <Col>
                     <BlockModule>
-                        <TotalSalesIndicator/>
+                        <TotalSalesIndicator />
                     </BlockModule>
 
                 </Col>
                 <Col>
                     <BlockModule>
-                        <VisitorsCountIndicator/>
+                        <VisitorsCountIndicator />
                     </BlockModule>
                 </Col>
                 <Col>
                     <BlockModule>
-                        <AverageCheckIndicator/>
+                        <AverageCheckIndicator />
                     </BlockModule>
                 </Col>
             </Row>
             <Row>
-                <Col span={12}  style={{marginTop: 24}} >
+                <Col span={12} style={{ marginTop: 24 }} >
                     <BlockModule fullWidth >
-                        <AdsDashboardModule/>
+                        <AdsDashboardModule />
                     </BlockModule>
                 </Col>
-                <Col span={12} style={{marginTop: 24}}>
+                <Col span={12} style={{ marginTop: 24 }}>
                     <BlockModule fullWidth>
-                        <VisitorsDashboardModule/>
+                        <VisitorsDashboardModule />
                     </BlockModule>
                 </Col>
             </Row>

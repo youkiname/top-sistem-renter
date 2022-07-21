@@ -1,9 +1,9 @@
 import React from 'react';
-import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
+import { HeaderPage } from "../../components/HeaderPage/HeaderPage";
 import styled from "styled-components";
-import {Button, Col, Form, Input, Row, message, DatePicker} from "antd";
+import { Button, Col, Form, Input, Row, DatePicker } from "antd";
 import { apiController } from "../../api";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const TableDiv = styled.div`
   padding: 24px;
@@ -24,16 +24,15 @@ export const AddArendatorPage = () => {
     const onSubmit = () => {
 
         apiController.addSeller({
-            first_name : firstName,
-            last_name : secondName,
-            mobile : Phone,
+            first_name: firstName,
+            last_name: secondName,
+            mobile: Phone,
             email: Email,
             password: Password,
             birth_date: birthdate,
-        }).then(()=>navigate("../sellers"));
+        }).then(() => navigate("../sellers"));
 
     }
-console.log(birthdate)
     return (
 
         <>
@@ -129,8 +128,8 @@ console.log(birthdate)
                         ]}
                     >
                         <DatePicker placeholder="Дата рождения"
-                               value={birthdate}
-                               onChange={moment => setBirthDate(moment?.toISOString().split('T')[0])}
+                            value={birthdate}
+                            onChange={moment => setBirthDate(moment?.toISOString().split('T')[0])}
                         />
                     </Form.Item>
                     <Form.Item

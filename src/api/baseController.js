@@ -17,7 +17,7 @@ export const axiosInstance = axios.create({
 // Request interceptor. Runs before your request reaches the server
 const onRequest = (config) => {
     config.params = config.params || {};
-    config.params['token'] = localStorage.getItem('token');
+    config.params['token'] = localStorage.getItem('token-renter');
     return config;
 }
 axiosInstance.interceptors.request.use(onRequest, null);

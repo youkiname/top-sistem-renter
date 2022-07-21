@@ -1,5 +1,5 @@
 import React from 'react';
-import {HeaderPage} from "../../Components/HeaderPage/HeaderPage";
+import { HeaderPage } from "../../components/HeaderPage/HeaderPage";
 import { Button, Col, Row, Typography, Table, Badge, Spin } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import styled from "styled-components";

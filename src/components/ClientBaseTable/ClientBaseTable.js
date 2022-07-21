@@ -1,8 +1,9 @@
 import React from 'react';
-import { Typography, Col, Row, Button, Table, Spin , Radio} from "antd";
+import { Typography, Col, Row, Button, Table, Spin } from "antd";
 import Search from "antd/es/input/Search";
 import { FileExcelOutlined } from "@ant-design/icons";
 import { apiController } from "../../api";
+import { CSV } from "../../csv/csv";
 
 const { Title } = Typography
 
@@ -46,10 +47,14 @@ const ClientBaseTable = () => {
     const onSearch = (e) => {
         const query = e
         function isIncludes(customer) {
-            return customer.name.includes(query)
+            return customer.name.toLowerCase().includes(query.toLowerCase())
         }
         setSearched(data.filter(isIncludes))
         setLoading(false)
+    }
+
+    const downloadCsv = () => {
+        CSV.download(columns, searched)
     }
 
     return (
@@ -71,16 +76,17 @@ const ClientBaseTable = () => {
                             width: 300,
                         }}
                     />
-                    <Button icon={<FileExcelOutlined />}>Выгрузить в Excel</Button>
-                    {/*<Button type="primary" icon={<PlusOutlined />}>Добавить арендатора</Button>*/}
+                    <Button icon={<FileExcelOutlined />} onClick={downloadCsv}>Выгрузить в Excel</Button>
                 </Col>
             </Row>
             <Spin spinning={loading}>
                 <Table
+                    rowKey="card_number"
                     locale={{ emptyText: 'Ничего не найдено' }}
                     columns={columns}
                     dataSource={searched}
-                    style={{ marginTop: 30 }} />
+                    style={{ marginTop: 30 }}
+                />
             </Spin>
         </>
     );

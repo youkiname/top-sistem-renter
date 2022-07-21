@@ -68,10 +68,10 @@ export class ApiController extends BaseController {
     getCustomerStatistics() {
         return this.instance.get(`/renter/statistic/customers`)
     }
-    getSellers(){
+    getSellers() {
         return this.instance.get(`renter/sellers`)
     }
-    addSeller(data){
+    addSeller(data) {
         return this.instance.post(`renter/register_seller`, data)
     }
 
@@ -83,7 +83,7 @@ export class ApiController extends BaseController {
     getVisitorsAgePlot(range = 'week') {
         return this.instance.get(`renter/statistic/visitors/age_plot/${range}`)
     }
-    getStatisticsSellers(){
+    getStatisticsSellers() {
         return this.instance.get(`renter/statistic/sellers`)
     }
     getShoppingCenters() {
@@ -91,10 +91,10 @@ export class ApiController extends BaseController {
     }
 
 
-    getProducts() {
+    getShopCategories() {
         return this.instance.get(`/shops/categories`)
     }
-    getLegalForm(){
+    getLegalForm() {
         return this.instance.get('legal_form')
     }
 

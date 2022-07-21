@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 
 export function RequireAuth({ children }) {
-    const auth = localStorage.getItem("auth")
+    const auth = localStorage.getItem("token-renter")
     let location = useLocation();
 
     if (!auth) {
