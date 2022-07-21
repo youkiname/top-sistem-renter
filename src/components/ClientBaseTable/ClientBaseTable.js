@@ -28,48 +28,35 @@ const columns = [
         key: 'purchases_sum'
     }
 ]
-const radioButtons = [
-    {
-        type: "week",
-        text: "Неделя",
-    },
-    {
-        type: "month",
-        text: "Месяц"
-    },
-    {
-        type: "year",
-        text: "Год"
-    }
-]
+
 
 const ClientBaseTable = () => {
     const [loading, setLoading] = React.useState(true)
     const [data, setData] = React.useState([])
+    const [searched, setSearched] = React.useState([])
 
     React.useEffect(() => {
         apiController.getCustomerStatistics().then(res => {
             setData(res.data)
             setLoading(false)
+            setSearched(res.data)
         })
     }, [])
+
+    const onSearch = (e) => {
+        const query = e
+        function isIncludes(customer) {
+            return customer.name.includes(query)
+        }
+        setSearched(data.filter(isIncludes))
+        setLoading(false)
+    }
+
     return (
         <>
 
             <Row justify="space-between">
-                <Radio.Group defaultValue="week" style={{ margin: 15 }}>
-                    {
-                        radioButtons.map(radio => (
-                            <Radio.Button
-                                key={radio.type}
-                                // onClick={handleVisitorRadioButton}
-                                value={radio.type}>
-                                {radio.text}
 
-                            </Radio.Button>
-                        ))
-                    }
-                </Radio.Group>
                 <Col>
                     <Title level={5}>Клиентская база</Title>
                 </Col>
@@ -79,7 +66,7 @@ const ClientBaseTable = () => {
                 }}>
                     <Search
                         placeholder="Найти"
-                        onSearch={() => { }}
+                        onSearch={onSearch}
                         style={{
                             width: 300,
                         }}
@@ -89,7 +76,11 @@ const ClientBaseTable = () => {
                 </Col>
             </Row>
             <Spin spinning={loading}>
-                <Table columns={columns} dataSource={data} style={{ marginTop: 30 }} />
+                <Table
+                    locale={{ emptyText: 'Ничего не найдено' }}
+                    columns={columns}
+                    dataSource={searched}
+                    style={{ marginTop: 30 }} />
             </Spin>
         </>
     );

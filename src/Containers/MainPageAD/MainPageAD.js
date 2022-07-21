@@ -4,11 +4,11 @@ import {BlockModule} from "../../Components/BlockModule/BlockModule";
 import {Col, Row} from "antd";
 import {VisitorsCountIndicator} from "../../Components/VisitorsCountIndicator/VisitorsCountIndicator";
 import {AverageCheckIndicator} from "../../Components/AverageCheckIndicator/AverageCheckIndicator";
-import {AdsDashboardModule} from "../../Components/AdsDashboardModule/AdsDashboardModule";
 import {VisitorsDashboardModule} from "../../Components/VisitorsDashboardModule/VisitorsDashboardModule";
 import {useDispatch, useSelector} from "react-redux";
 import {getVisitorCountIndicator} from "../../store/slices";
 import {AdsBannersPage} from "../AdsBannersPage/AdsBannersPage";
+import {AdsDashboardModule} from "../../Components/AdsDashboardModule/AdsDashboardModule";
 
 export const MainPageAD = () => {
     const dispatch = useDispatch()
@@ -25,7 +25,6 @@ export const MainPageAD = () => {
                     </BlockModule>
 
                 </Col>
-
                 <Col>
                     <BlockModule>
                         <VisitorsCountIndicator/>
@@ -49,9 +48,6 @@ export const MainPageAD = () => {
                     </BlockModule>
                 </Col>
             </Row>
-
-
-
         </>
     );
 };

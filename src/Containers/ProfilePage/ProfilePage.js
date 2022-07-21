@@ -1,11 +1,11 @@
 import React from 'react';
-import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
+import {HeaderPage} from "../../Components/HeaderPage/HeaderPage";
 import styled from "styled-components";
-import { Button, Col, Form, Input, Row, Select,DatePicker, message } from "antd";
-import { authController } from "../../api";
-import { apiController } from "../../api";
+import {Button, Col, Form, Input, Row, Select, message, DatePicker} from "antd";
+import {authController} from "../../api";
+import {apiController} from "../../api";
 
-const { Option } = Select
+const {Option} = Select
 
 const TableDiv = styled.div`
   padding: 24px;
@@ -13,42 +13,44 @@ const TableDiv = styled.div`
 `;
 
 const ProfilePage = () => {
+    const [form] = Form.useForm()
     const [currentUser, setCurrentUser] = React.useState({})
     const [products, setProducts] = React.useState([])
-    const [shoppingCenterName, setShoppingCenterName] = React.useState('')
-    const [address, setAddress] = React.useState('')
-    const [description, setDescription] = React.useState('')
-    const [management, setManagement] = React.useState('')
+    const [productsId, setProductsId] = React.useState()
+    const setUserData = (value, field) => {
+        setCurrentUser({
+            ...currentUser,
+            [field]: value
+        })
+    }
 
     React.useEffect(() => {
         apiController.getProducts().then(res => {
             setProducts(res.data)
         })
         authController.getMe().then(res => {
+            form.setFieldsValue(res.data)
             setCurrentUser(res.data)
-
         })
-        apiController.getManagement().then(res =>{
-            setManagement(res.data)
-        })
-    }, [])
 
+    }, [form])
+    console.log(currentUser.category_id)
     const onSubmit = () => {
         apiController.updateProfile({
             first_name: currentUser.first_name,
-            phone: currentUser.phone,
-            shopping_center_name: shoppingCenterName,
-            address: address,
-            description: description,
+            last_name: currentUser.last_name,
+            mobile: currentUser.mobile,
+            birth_date: currentUser.birth_date,
+            category_id: currentUser.category_id,
         }).then(res => {
+            localStorage.setItem('name', res.data.full_name)
             message.success('Данные успешно обновлены.');
         })
     }
-
     return (
         <>
-            <div style={{ backgroundColor: "#FFF", marginTop: -48, marginBottom: 24 }}>
-                <HeaderPage title="Настройки профиля" />
+            <div style={{backgroundColor: "#FFF", marginTop: -48, marginBottom: 24}}>
+                <HeaderPage title="Настройки профиля"/>
             </div>
 
             <TableDiv>
@@ -60,27 +62,41 @@ const ProfilePage = () => {
                     wrapperCol={{
                         span: 12,
                     }}
-                    onFinish={() => {
-                    }}
-                    onFinishFailed={() => {
-                    }}
+                    form={form}
+                    onFinish={onSubmit}
+
                 >
+
                     <Form.Item
-                        label="Арендадатор"
-                        name="director"
+                        label="Имя"
+                        name="first_name"
                         rules={[
                             {
                                 required: true,
-                                message: 'Введите ФИО руководителя',
+                                message: 'Введите имя',
                             },
                         ]}
                     >
-                        <Input placeholder="Иванов Иван Иванович" value={currentUser.first_name} onChange={e => setCurrentUser({ ...currentUser, first_name: e.target.value })} />
+                        <Input placeholder="Иван" value={currentUser?.first_name}
+                               onChange={e => setCurrentUser({...currentUser, first_name: e.target.value})}/>
+                    </Form.Item>
+                    <Form.Item
+                        label="Фамилия"
+                        name="last_name"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Введите фамилию',
+                            },
+                        ]}
+                    >
+                        <Input placeholder="Иванов" value={currentUser.last_name}
+                               onChange={e => setCurrentUser({...currentUser, last_name: e.target.value})}/>
                     </Form.Item>
 
                     <Form.Item
                         label="Телефон для связи"
-                        name="phone"
+                        name="mobile"
                         rules={[
                             {
                                 required: true,
@@ -88,57 +104,44 @@ const ProfilePage = () => {
                             },
                         ]}
                     >
-                        <Input placeholder="+7 999 999 99 99" value={currentUser.phone} onChange={e => setCurrentUser({ ...currentUser, phone: e.target.value })} />
+                        <Input placeholder="+7 999 999 99 99" value={currentUser.phone}
+                               onChange={e => setCurrentUser({...currentUser, phone: e.target.value})}/>
+                    </Form.Item>
+                    <Form.Item
+                        label="Категория"
+                        name="category_id"
+                    >
+                        <Select
+                            style={{width: 250}}
+                            onChange={(category_id) => setCurrentUser({...currentUser,category_id })}
+                        >
+                            {
+                                products.map(product => (
+                                    <Option value={product.id} key={product.id}>{product.name} </Option>
+                                ))
+                            }
+                        </Select>
                     </Form.Item>
 
                     <Form.Item
-                        label="Категория"
-                        name="products"
-                    >
-                        <Select
-                            style={{ width: 250 }}
-                        >
+                        label="Дата рождения"
+                        name="birthDate"
+                        rules={[
                             {
-                                products.map(product => (
-                                    <Option value={product.id} key={product.id}>{product.name}</Option>
-                                ))
-                            }
-                        </Select>
-                    </Form.Item>
-                    <Form.Item
-                        label="Оформление"
-                        name="products"
+                                required: true,
+                                message: 'Введите дату рождения',
+                            },
+                        ]}
                     >
-                        <Select
-                            placeholder="Самозанятый, ИП, ООО"
-                            style={{ width: 250 }}
-                        >
-                            {
-                                products.map(product => (
-                                    <Option value={product.id} key={product.id}>{product.name}</Option>
-                                ))
-                            }
-                        </Select>
-                    </Form.Item>
-                    <Form.Item
-                        label = "Дата рождения"
-                        name = "birthDate"
-                        rules = {[
-                        {
-                            required: true,
-                            message: 'Введите дату рождения',
-                        },
-                    ]}
-                        >
-                            <DatePicker placeholder ="Введите дату"
-                            />
+                        <DatePicker onChange={(moment) => setCurrentUser({...currentUser, birth_date: moment?.toISOString().split("T")[0]})} placeholder="Введите дату"
+                        />
                     </Form.Item>
 
                     <Row justify="center">
                         <Col span={24}>
-                            <Form.Item style={{ margin: '0 auto' }}>
-                                <Button type="primary" htmlType="submit"
-                                    onClick={onSubmit}
+                            <Form.Item style={{margin: '0 auto'}}>
+                                <Button type="primary"
+                                        onClick={onSubmit}
                                 >
                                     Сохранить
                                 </Button>
@@ -152,4 +155,4 @@ const ProfilePage = () => {
     );
 };
 
-export { ProfilePage };
+export {ProfilePage};

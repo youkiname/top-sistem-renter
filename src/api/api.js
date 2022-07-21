@@ -2,39 +2,35 @@ import { BaseController } from "./baseController";
 
 export class ApiController extends BaseController {
     getTransactSum() {
-        return this.instance.get("statistic/transactions/sum")
+        return this.instance.get("/renter/statistic/transactions/sum")
     }
 
     getVisitorsCountIndicatorMounth() {
-        return this.instance.get("statistic/visitors/month")
+        return this.instance.get("/renter/statistic/visitors/month")
     }
 
     getVisitorCountIndicatorToday() {
-        return this.instance.get("statistic/visitors/today")
+        return this.instance.get("/renter/statistic/visitors/today")
     }
 
     getStatisticTransactionToday() {
-        return this.instance.get("statistic/transactions/sum/today")
+        return this.instance.get("/renter/statistic/transactions/sum/today")
     }
 
     getStatisticUsersGraphMonth() {
-        return this.instance.get("statistic/visitors_graph/month")
+        return this.instance.get("/renter/statistic/visitors_graph/month")
     }
 
     getStatisticAverageSumMonth() {
-        return this.instance.get("statistic/transactions/average_sum/month")
+        return this.instance.get("/renter/statistic/transactions/average_sum/month")
     }
 
     getStatisticAverageSumToday() {
-        return this.instance.get("statistic/transactions/average_sum/today")
+        return this.instance.get("/renter/statistic/transactions/average_sum/today")
     }
 
     getStatisticAverageGraph() {
-        return this.instance.get("statistic/transactions/average_sum/graph")
-    }
-
-    getLastTransaction(limit = 10) {
-        return this.instance.get(`transactions?limit=${limit}`)
+        return this.instance.get("/renter/statistic/transactions/average_sum/graph")
     }
 
     getShopsIncomeStatistics() {
@@ -42,33 +38,16 @@ export class ApiController extends BaseController {
     }
 
     getBanners() {
-        return this.instance.get(`banners/`)
+        return this.instance.get(`/renter/transactions?limit=10/`)
     }
 
     getBanner(id) {
         return this.instance.get(`banners/${id}`)
     }
 
-    editBanner(id, data, ImageForm) {
-        return this.instance.put(`banners/${id}`, ImageForm, {
-            params: data
-        })
-    }
-    getPoll(id) {
-        return this.instance.get(`polls/${id}`)
-    }
 
-    editPollPage(id, data) {
-        return this.instance.put(`polls/${id}`, {
-            params: data
-        })
-    }
 
-    saveNewBanner(data, imageForm) {
-        return this.instance.post(`banners`, imageForm, {
-            params: data
-        })
-    }
+
 
     toggleActiveBannerState(id, is_active) {
         let route = 'banners/activate'
@@ -87,57 +66,36 @@ export class ApiController extends BaseController {
     }
 
     getCustomerStatistics() {
-        return this.instance.get(`statistic/customers`)
+        return this.instance.get(`/renter/statistic/customers`)
     }
-
-    getCardStatuses() {
-        return this.instance.get(`card_statuses/`)
+    getSellers(){
+        return this.instance.get(`renter/sellers`)
     }
-
+    addSeller(data){
+        return this.instance.post(`renter/register_seller`, data)
+    }
 
     getPolls() {
         return this.instance.get(`polls/`)
     }
 
-    getColumnPlot(startDate, endDate) {
-        return this.instance.get(`statistic/visitors_graph/`, {
-            params: {
-                "start_date": startDate,
-                "end_date": endDate
-            }
-        })
-    }
-
-    getTransactionsSumGraph(startDate, endDate) {
-        return this.instance.get(`statistic/transactions/average_sum/graph`, {
-            params: {
-                "start_date": startDate,
-                "end_date": endDate
-            }
-        })
-    }
 
     getVisitorsAgePlot(range = 'week') {
-        return this.instance.get(`statistic/visitors/age_plot/${range}`)
+        return this.instance.get(`renter/statistic/visitors/age_plot/${range}`)
     }
-
+    getStatisticsSellers(){
+        return this.instance.get(`renter/statistic/sellers`)
+    }
     getShoppingCenters() {
         return this.instance.get(`shopping_centers`)
     }
 
-    getShops() {
-        return this.instance.get(`shops`)
-    }
-
-    getShopCategories() {
-        return this.instance.get(`sellers`)
-    }
 
     getProducts() {
-        return this.instance.get(`cities`)
+        return this.instance.get(`/shops/categories`)
     }
-    getManagement(){
-        return this.instance.get('cities')
+    getLegalForm(){
+        return this.instance.get('legal_form')
     }
 
     savePoll(data) {
@@ -146,16 +104,9 @@ export class ApiController extends BaseController {
         })
     }
 
-    saveRenter(data, avatarForm) {
-        return this.instance.post(`sellers`, avatarForm, {
-            params: data
-        })
-    }
 
-    updateProfile(data, avatarForm) {
-        return this.instance.put(`admins/update_profile`, avatarForm, {
-            params: data
-        })
+    updateProfile(data,) {
+        return this.instance.put(`renter/update_profile`, data)
     }
 }
 

@@ -10,10 +10,10 @@ export class AuthController extends BaseController {
         return this.instance.get('csrf-cookie')
     }
     getAuth(params) {
-        return this.instance.get(`auth/admin`, { params })
+        return this.instance.get(`renter/auth`, { params })
     }
     getMe() {
-        return this.instance.get(`me/admin`)
+        return this.instance.get(`get_me`)
     }
     logout() {
         return this.instance.post(`logout`)

@@ -2,8 +2,8 @@ import React from 'react';
 import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
 import styled from "styled-components";
 import {Button, Col, Form, Input, Row, message, DatePicker} from "antd";
-import { useNavigate } from "react-router-dom";
 import { apiController } from "../../api";
+import {useNavigate} from "react-router-dom";
 
 const TableDiv = styled.div`
   padding: 24px;
@@ -11,52 +11,31 @@ const TableDiv = styled.div`
 `;
 
 
-const AddArendatorPage = () => {
-
+export const AddArendatorPage = () => {
     const navigate = useNavigate()
+
     const [firstName, setFirstName] = React.useState()
     const [secondName, setSecondName] = React.useState()
     const [Phone, setPhone] = React.useState()
     const [Email, setEmail] = React.useState()
     const [Password, setPassword] = React.useState()
-    const [renterConfirmPassword,setRenterConfirmPassword] = React.useState()
-    const [avatar, setAvatar] = React.useState(null)
     const [birthdate, setBirthDate] = React.useState()
-    const propsUpload = {
-        name: 'image',
-        multiple: false,
-        onDrop(e) {
-            console.log('Dropped files', e.dataTransfer.files);
-        },
-        beforeUpload(file) {
-            const isAllowed = file.type === 'image/jpeg' || file.type === 'image/png';
-            if (!isAllowed) {
-                message.error('Вы можете загрузить только jpg или png файл.');
-                return false;
-            }
-            setAvatar(file)
-            return false;
-        }
-    };
 
     const onSubmit = () => {
-        let imageForm = new FormData();
-        imageForm.append('avatar', avatar);
 
-        apiController.saveRenter({
+        apiController.addSeller({
             first_name : firstName,
-            second_name : secondName,
+            last_name : secondName,
             mobile : Phone,
             email: Email,
             password: Password,
             birth_date: birthdate,
-        }, imageForm).then(res => {
-            navigate("/base-tc")
-        });
+        }).then(()=>navigate("../sellers"));
 
     }
-
+console.log(birthdate)
     return (
+
         <>
             <div style={{ backgroundColor: "#FFF", marginTop: -48, marginBottom: 24 }}>
                 <HeaderPage title="Добавить продавца" />
@@ -79,7 +58,7 @@ const AddArendatorPage = () => {
 
                     <Form.Item
                         label="Имя"
-                        name="organizationName"
+                        name="first_name"
                         rules={[
                             {
                                 required: true,
@@ -95,7 +74,7 @@ const AddArendatorPage = () => {
 
                     <Form.Item
                         label="Фамилия"
-                        name="director"
+                        name="last_name"
                         rules={[
                             {
                                 required: true,
@@ -151,7 +130,7 @@ const AddArendatorPage = () => {
                     >
                         <DatePicker placeholder="Дата рождения"
                                value={birthdate}
-                               onChange={e => setBirthDate(e.target.value)}
+                               onChange={moment => setBirthDate(moment?.toISOString().split('T')[0])}
                         />
                     </Form.Item>
                     <Form.Item
@@ -168,20 +147,7 @@ const AddArendatorPage = () => {
                             onChange={e => setPassword(e.target.value)}
                         />
                     </Form.Item>
-                    {/*<Form.Item*/}
-                    {/*    label="Повторите пароль"*/}
-                    {/*    name="password"*/}
-                    {/*    rules={[*/}
-                    {/*        {*/}
-                    {/*            required: true,*/}
-                    {/*            message: 'Повторите пароль',*/}
-                    {/*        },*/}
-                    {/*    ]}*/}
-                    {/*>*/}
-                    {/*    <Input.Password value={renterConfirmPassword}*/}
-                    {/*                    onChange={e => setRenterConfirmPassword(e.target.value)}*/}
-                    {/*    />*/}
-                    {/*</Form.Item>*/}
+
 
                     <Row justify="center">
                         <Col span={24}>
@@ -200,4 +166,3 @@ const AddArendatorPage = () => {
 };
 
 
-export { AddArendatorPage };

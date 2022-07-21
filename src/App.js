@@ -2,8 +2,6 @@ import React from 'react';
 import {
     MainLayout,
     MainPageAD,
-    AddArendatorPage,
-    AddBannerPage,
     AddPollPage,
     AdsPollsPage,
     BaseTCPage,
@@ -11,6 +9,7 @@ import {
     ProfilePage, AuthPage,
     EditPollPage,
     EditAdsBanner,
+    AddArendatorPage,
 } from "./Containers";
 import './App.css'
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
@@ -35,6 +34,11 @@ export const App = () => {
                             <AdsPollsPage />
                         </RequireAuth>
                     } />
+                    <Route path="/add-arendator" element={
+                        <RequireAuth>
+                            <AddArendatorPage />
+                        </RequireAuth>
+                    } />
                     <Route path="/base-tc" element={
                         <RequireAuth>
                             <BaseTCPage />
@@ -51,19 +55,13 @@ export const App = () => {
                             <Sellers/>
                         </RequireAuth>
                     }/>
-                    <Route path="/add-arendator" element={<RequireAuth>
-                        <AddArendatorPage />
-                    </RequireAuth>} />
+
                     <Route path="/profile" element={
                         <RequireAuth>
                             <ProfilePage />
                         </RequireAuth>
                     } />
-                    <Route path="/add-banner" element={
-                        <RequireAuth>
-                            <AddBannerPage />
-                        </RequireAuth>
-                    } />
+
                     <Route path="/add-polls" element={
                         <RequireAuth>
                             <AddPollPage />

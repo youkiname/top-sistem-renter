@@ -1,39 +1,34 @@
 import React from 'react';
-import { Typography, Divider, Table, Badge } from "antd";
-import { apiController } from "../../api";
+import {Typography, Divider, Table, Badge} from "antd";
+import {apiController} from "../../api";
 
-const { Title } = Typography
+const {Title} = Typography
 
 const columns = [
     {
         title: 'Дата',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'created_at',
+        key: 'created_at',
+        width: '10%',
     },
     {
         title: 'Сумма чека',
-        dataIndex: 'shop',
-        key: 'shop',
-        render: shop => {
-            return (
-                <div>{shop.name}</div>
-            )
-        }
+        dataIndex: 'amount',
+        key: 'amount',
+        width: '25%',
     },
     {
-        title: 'Кэшбек',
-        dataIndex: 'comment',
-        key: 'comment',
+        title: 'Баллы',
+        dataIndex: 'bonuses_offset',
+        key: 'bonuses_offset',
+        width: '25%',
     },
     {
         title: 'Продавец',
-        dataIndex: 'is_active',
-        key: 'is_active',
-        render: is_active => {
-            return (
-                <Badge status={is_active ? 'success' : 'error'} text={' '} />
-            )
-        }
+        dataIndex: 'customer',
+        key: 'customer',
+        width: '25%',
+        render: (customer) => (<span>{customer.name}</span>)
     },
 ];
 
@@ -43,12 +38,16 @@ const AdsDashboardModule = () => {
         apiController.getBanners().then(res => setData(res.data))
     }, [])
     return (
-        <div style={{ width: '100%' }}>
+        <div style={{width: '100%'}}>
             <Title level={5}>Транзакции</Title>
-            <Divider style={{ margin: '10px 0' }} />
-            <Table size='small' pagination={{ defaultPageSize: 5 }} dataSource={data} columns={columns} />
+            <Divider style={{margin: '10px 0'}}/>
+            <Table
+                size='small'
+                pagination={{defaultPageSize: 5}}
+                dataSource={data}
+                columns={columns}/>
         </div>
     );
 };
 
-export { AdsDashboardModule };
+export {AdsDashboardModule};

@@ -15,7 +15,7 @@ export const Sellers = () => {
     return (
         <>
             <div style={{backgroundColor: "#FFF", marginTop: -48, marginBottom: 24}}>
-                <HeaderPage title="Выручка"/>
+                <HeaderPage title="Продавцы"/>
             </div>
 
             <TableDiv>

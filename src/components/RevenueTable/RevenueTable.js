@@ -8,72 +8,65 @@ const { Title } = Typography
 
 const columns = [
     {
-        title: 'Количество сделок за неделю',
+        title: 'Продавец',
         dataIndex: 'name',
         key: 'name',
+        width: '10%',
+    },
+    {
+        title: 'Количество сделок за неделю',
+        dataIndex: 'transactions_per_week',
+        key: 'transactions_per_week',
         width: '25%',
     },
     {
         title: 'За месяц',
-        dataIndex: 'birth_date',
-        key: 'birth_date',
+        dataIndex: 'transactions_per_month',
+        key: 'transactions_per_month',
         width: '25%',
     },
     {
         title: 'Выручка за неделю',
-        dataIndex: 'purchases_amount',
-        key: 'purchases_amount',
+        dataIndex: 'income_per_week',
+        key: 'income_per_week',
         width: '25%',
     },
     {
         title: 'За месяц',
-        dataIndex: 'purchases_sum',
-        key: 'purchases_sum',
+        dataIndex: 'income_per_month',
+        key: 'income_per_month',
         width: '25%',
     }
 ]
-const radioButtons = [
-    {
-        type: "week",
-        text: "Неделя",
-    },
-    {
-        type: "month",
-        text: "Месяц"
-    },
-    {
-        type: "year",
-        text: "Год"
-    }
-]
+
 
 export const RevenueTable = () => {
     const [loading, setLoading] = React.useState(true)
     const [data, setData] = React.useState([])
+    const [searched, setSearched] = React.useState([])
+
 
     React.useEffect(() => {
-        apiController.getCustomerStatistics().then(res => {
+        apiController.getStatisticsSellers().then(res => {
             setData(res.data)
             setLoading(false)
+            setSearched(res.data)
+
         })
     }, [])
+    const onSearch = (e) => {
+        const query = e
+        function isIncludes(customer) {
+            return customer.name.includes(query)
+        }
+        setSearched(data.filter(isIncludes))
+        setLoading(false)
+    }
     return (
         <>
 
             <Row justify="space-between">
-                <Radio.Group defaultValue="week" style={{ margin: 15 }}>
-                    {
-                        radioButtons.map(radio => (
-                            <Radio.Button
-                                key={radio.type}
-                                // onClick={handleVisitorRadioButton}
-                                value={radio.type}>
-                                {radio.text}
 
-                            </Radio.Button>
-                        ))
-                    }
-                </Radio.Group>
                 <Col>
                     <Title level={5}>Выручка</Title>
                 </Col>
@@ -83,7 +76,7 @@ export const RevenueTable = () => {
                 }}>
                     <Search
                         placeholder="Найти"
-                        onSearch={() => { }}
+                        onSearch={onSearch}
                         style={{
                             width: 300,
                         }}
@@ -93,7 +86,11 @@ export const RevenueTable = () => {
                 </Col>
             </Row>
             <Spin spinning={loading}>
-                <Table columns={columns} dataSource={data} style={{ marginTop: 30 }} />
+                <Table
+                    columns={columns}
+
+                    dataSource={searched}
+                    style={{ marginTop: 30 }} />
             </Spin>
         </>
     );
