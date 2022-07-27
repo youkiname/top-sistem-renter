@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
 import styled from "styled-components";
-import { Button, Col, Form, Input, Row, DatePicker } from "antd";
+import {Button, Col, Form, Input, Row, DatePicker, message} from "antd";
 import { apiController } from "../../api";
 import { useNavigate } from "react-router-dom";
 
@@ -30,7 +30,14 @@ export const AddArendatorPage = () => {
             email: Email,
             password: Password,
             birth_date: birthdate,
-        }).then(() => navigate("../sellers"));
+        }).then(() => navigate("../sellers"))
+
+        .catch((error) => {
+
+            if (error.response.status == 409) {
+                message.error("Email уже занят" )
+            }
+        })
 
     }
     return (

@@ -23,8 +23,13 @@ const onRequest = (config) => {
 axiosInstance.interceptors.request.use(onRequest, null);
 
 axiosInstance.interceptors.response.use((response) => response, (error) => {
+    if( error.response.status == 409){
+        throw error;
+
+    }
     message.error("Произошла ошибка при выполнении запроса.")
     throw error;
+
 });
 
 export class BaseController {
