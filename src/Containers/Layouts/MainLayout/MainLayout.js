@@ -14,9 +14,9 @@ const { Text } = Typography
 export const MainLayout = ({ children }) => {
     const navigate = useNavigate()
 
-    const logout = () => {
+    const logout = async () => {
+        await authController.logout();
         localStorage.removeItem('token-renter');
-        authController.logout();
         navigate('/auth');
     }
 
