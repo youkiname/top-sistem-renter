@@ -1,8 +1,8 @@
 import React from 'react';
-import { HeaderPage } from "../../components/HeaderPage/HeaderPage";
 import styled from "styled-components";
+import {HeaderPage} from "../../Components/HeaderPage/HeaderPage";
 import { Tabs } from "antd";
-import { SellersTable } from "../../components/SellersTable/SellersTable";
+import {SellersTable} from "../../Components/SellersTable/SellersTable";
 
 const { TabPane } = Tabs
 

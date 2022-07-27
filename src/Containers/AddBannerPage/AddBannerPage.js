@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeaderPage } from "../../components/HeaderPage/HeaderPage";
+import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
 import {
     Select,
     Button,

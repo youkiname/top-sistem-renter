@@ -1,13 +1,13 @@
 import React from 'react';
-import { TotalSalesIndicator } from "../../components/TotalSalesIndicator/TotalSalesIndicator";
-import { BlockModule } from "../../components/BlockModule/BlockModule";
+import { TotalSalesIndicator } from "../../Components/TotalSalesIndicator/TotalSalesIndicator";
+import { BlockModule } from "../../Components/BlockModule/BlockModule";
 import { Col, Row } from "antd";
-import { VisitorsCountIndicator } from "../../components/VisitorsCountIndicator/VisitorsCountIndicator";
-import { AverageCheckIndicator } from "../../components/AverageCheckIndicator/AverageCheckIndicator";
-import { VisitorsDashboardModule } from "../../components/VisitorsDashboardModule/VisitorsDashboardModule";
+import { VisitorsCountIndicator } from "../../Components/VisitorsCountIndicator/VisitorsCountIndicator";
+import {AverageCheckIndicator} from "../../Components/AverageCheckIndicator/AverageCheckIndicator";
 import { useDispatch } from "react-redux";
+import {VisitorsDashboardModule} from "../../Components/VisitorsDashboardModule/VisitorsDashboardModule";
 import { getVisitorCountIndicator } from "../../store/slices";
-import { AdsDashboardModule } from "../../components/AdsDashboardModule/AdsDashboardModule";
+import {AdsDashboardModule} from "../../Components/AdsDashboardModule/AdsDashboardModule";
 
 export const MainPageAD = () => {
     const dispatch = useDispatch()

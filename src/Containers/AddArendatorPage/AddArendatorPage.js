@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeaderPage } from "../../components/HeaderPage/HeaderPage";
+import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
 import styled from "styled-components";
 import { Button, Col, Form, Input, Row, DatePicker } from "antd";
 import { apiController } from "../../api";
@@ -93,13 +93,15 @@ export const AddArendatorPage = () => {
                         rules={[
                             {
                                 required: true,
-                                message: 'Номер телефона для связи',
+                                pattern: new RegExp("^[\+]?[1-9]{1}[0-9]{10,10}$"),
+                                message: "Неверный номер телефона"
                             },
                         ]}
                     >
                         <Input placeholder="+7 999 999 99 99"
                             value={Phone}
-                            onChange={e => setPhone(e.target.value)}
+                               maxLength={12}
+                               onChange={e => setPhone(e.target.value)}
                         />
                     </Form.Item>
                     <Form.Item

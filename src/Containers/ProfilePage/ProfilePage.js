@@ -1,6 +1,6 @@
 import React from 'react';
-import { HeaderPage } from "../../components/HeaderPage/HeaderPage";
 import styled from "styled-components";
+import {HeaderPage} from "../../Components/HeaderPage/HeaderPage";
 import { Button, Col, Form, Input, Row, Select, message, DatePicker, Spin } from "antd";
 import { authController } from "../../api";
 import { apiController } from "../../api";
@@ -111,11 +111,15 @@ const ProfilePage = () => {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Введите номер телефона для связи',
+                                    pattern: new RegExp("^[\+]?[1-9]{1}[0-9]{10,10}$"),
+                                    message: "Неверный номер телефона",
+
                                 },
                             ]}
                         >
-                            <Input placeholder="+7 999 999 99 99" value={currentUser.mobile}
+                            <Input placeholder="+7 999 999 99 99"
+                                   maxLength={12}
+                                   value={currentUser.mobile}
                                 onChange={e => setCurrentUser({ ...currentUser, mobile: e.target.value })} />
                         </Form.Item>
 
