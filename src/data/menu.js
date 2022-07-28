@@ -1,5 +1,4 @@
 import {
-    AreaChartOutlined,
     DashboardOutlined,
     LaptopOutlined,
     NotificationOutlined, TableOutlined, TeamOutlined, UsergroupAddOutlined, ProfileOutlined,
@@ -8,7 +7,7 @@ import {
 import React from "react";
 
 export const menuListData = [
-12,12
+    12, 12
 ]
 
 export const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {

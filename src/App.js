@@ -18,7 +18,6 @@ import { Revenue } from "./Containers/RevenuePage/RevenuePage";
 import { Sellers } from "./Containers/SellersPage/SellersPage";
 
 export const App = () => {
-
     return (
         <BrowserRouter basename="/renter">
             <MainLayout>
@@ -84,5 +83,3 @@ export const App = () => {
         </BrowserRouter>
     );
 };
-
-;
