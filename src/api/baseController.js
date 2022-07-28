@@ -2,8 +2,8 @@ import axios from "axios";
 
 // Create axios instance with base url and credentials support
 export const axiosInstance = axios.create({
-    // baseURL: "https://top-sistem.ru/api/",
-    baseURL: "http://127.0.0.1:8000/api/",
+    baseURL: "https://top-sistem.ru/api/",
+    // baseURL: "http://127.0.0.1:8000/api/",
     withCredentials: true,
     credentials: true,
     headers: {
