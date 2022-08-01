@@ -48,7 +48,6 @@ export const AddPollPage = () => {
             description: "",
             choices: [],
         },
-        isInitialValid: false,
         onSubmit,
         validationSchema
     })

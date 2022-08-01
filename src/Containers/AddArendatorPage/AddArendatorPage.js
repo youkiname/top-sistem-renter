@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
 import styled from "styled-components";
-import {Button, Col, Form, Input, Row, DatePicker, message} from "antd";
+import { Button, Col, Form, Input, Row, DatePicker, message } from "antd";
 import { apiController } from "../../api";
 import { useNavigate } from "react-router-dom";
 
@@ -19,28 +19,25 @@ export const AddArendatorPage = () => {
     const [Phone, setPhone] = React.useState()
     const [Email, setEmail] = React.useState()
     const [Password, setPassword] = React.useState()
-    const [birthdate, setBirthDate] = React.useState()
-    const onSubmit = () => {
+    const [birthDate, setBirthDate] = React.useState()
 
+    const onSubmit = () => {
         apiController.addSeller({
             first_name: firstName,
             last_name: secondName,
             mobile: Phone,
             email: Email,
             password: Password,
-            birth_date: birthdate,
-
-        }).then(() => navigate("../sellers"))
-
-        .catch((error) => {
-                if (error.response.status == 409) {
-                message.error("Email уже занят" )
+            birth_date: birthDate,
+        }).then(() => {
+            navigate("../sellers")
+        }).catch((error) => {
+            if (error.response.status === 409) {
+                message.error("Email уже занят")
             }
         })
-
     }
     return (
-
         <>
             <div style={{ backgroundColor: "#FFF", marginTop: -48, marginBottom: 24 }}>
                 <HeaderPage title="Добавить продавца" />
@@ -55,10 +52,7 @@ export const AddArendatorPage = () => {
                     wrapperCol={{
                         span: 12,
                     }}
-                    onFinish={() => {
-                    }}
-                    onFinishFailed={() => {
-                    }}
+                    onFinish={onSubmit}
                 >
 
                     <Form.Item
@@ -106,8 +100,8 @@ export const AddArendatorPage = () => {
                     >
                         <Input placeholder="+7 999 999 99 99"
                             value={Phone}
-                               maxLength={12}
-                               onChange={e => setPhone(e.target.value)}
+                            maxLength={12}
+                            onChange={e => setPhone(e.target.value)}
                         />
                     </Form.Item>
                     <Form.Item
@@ -136,7 +130,7 @@ export const AddArendatorPage = () => {
                         ]}
                     >
                         <DatePicker placeholder="Дата рождения"
-                            value={birthdate}
+                            value={birthDate}
                             onChange={moment => setBirthDate(moment?.toISOString().split('T')[0])}
                         />
                     </Form.Item>
@@ -159,7 +153,7 @@ export const AddArendatorPage = () => {
                     <Row justify="center">
                         <Col span={24}>
                             <Form.Item style={{ margin: '0 auto' }}>
-                                <Button type="primary" htmlType="submit" onClick={onSubmit}>
+                                <Button type="primary" htmlType="submit">
                                     Создать продавца
                                 </Button>
                             </Form.Item>

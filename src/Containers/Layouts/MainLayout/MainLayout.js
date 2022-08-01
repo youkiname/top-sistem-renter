@@ -5,6 +5,7 @@ import { menuData } from "../../../data/menu";
 import { Logo } from "../../../Components/Logo/Logo";
 import {Link, useLocation} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useGlobalState, setGlobalState } from '../../../GlobalState';
 import { authController } from "../../../api";
 import {DashboardOutlined, ProfileOutlined, TableOutlined, TeamOutlined, UsergroupAddOutlined} from "@ant-design/icons";
 
@@ -63,19 +64,24 @@ export const MainLayout = ({ children }) => {
 
     }
     const navigate = useNavigate()
+    const [username] = useGlobalState('username')
+    const [loggedIn] = useGlobalState('loggedIn')
 
-    const logout = () => {
+    const logout = async () => {
+        await authController.logout();
         localStorage.removeItem('token-renter');
-        authController.logout();
+        setGlobalState('username', '')
+        setGlobalState('loggedIn', false)
         navigate('/auth');
     }
 
-    const [currentUsername, setCurrentUsername] = React.useState('ShoppingCenter')
     React.useEffect(() => {
         if (localStorage.getItem('name')) {
-            setCurrentUsername(localStorage.getItem('name'))
+            setGlobalState('username', localStorage.getItem('name'))
         }
-
+        if (localStorage.getItem('token-renter')) {
+            setGlobalState('loggedIn', true)
+        }
     }, [])
 console.log(selectedKey)
     return (
@@ -84,15 +90,20 @@ console.log(selectedKey)
             <Header className="header mainLayout__header">
                 <div className="logo"><Logo /></div>
                 <div className='mainLayout__profile-wrap'>
-                    <Link to="/profile">
-                        <Space direction="horizontal">
-                            <Avatar src="https://joeschmoe.io/api/v1/random" />
-                            <Text style={{ color: '#fff' }}>{currentUsername}</Text>
-                        </Space>
-                    </Link>
-                    <Button onClick={logout} type="primary" style={{ marginLeft: '10px' }}>
-                        Выйти
-                    </Button>
+                    {
+                        loggedIn &&
+                        <>
+                            <Link to="/profile">
+                                <Space direction="horizontal">
+                                    <Avatar src="https://joeschmoe.io/api/v1/random" />
+                                    <Text style={{ color: '#fff' }}>{username}</Text>
+                                </Space>
+                            </Link>
+                            <Button onClick={logout} type="primary" style={{ marginLeft: '10px' }}>
+                                Выйти
+                            </Button>
+                        </>
+                    }
                 </div>
             </Header>
             <Layout>

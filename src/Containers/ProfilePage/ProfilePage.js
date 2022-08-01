@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
-import {HeaderPage} from "../../Components/HeaderPage/HeaderPage";
+import { HeaderPage } from "../../Components/HeaderPage/HeaderPage";
 import { Button, Col, Form, Input, Row, Select, message, DatePicker, Spin } from "antd";
 import { authController } from "../../api";
 import { apiController } from "../../api";
+import { setGlobalState } from '../../GlobalState';
 import moment from 'moment';
 
 const { Option } = Select
@@ -20,12 +21,6 @@ const ProfilePage = () => {
     const [categories, setCategories] = React.useState([])
     const [categoryId, setCategoryId] = React.useState()
     const [legalForm, setLegalForm] = React.useState()
-    const setUserData = (value, field) => {
-        setCurrentUser({
-            ...currentUser,
-            [field]: value
-        })
-    }
 
     React.useEffect(() => {
         apiController.getShopCategories().then(res => {
@@ -53,6 +48,7 @@ const ProfilePage = () => {
             category_id: categoryId,
             legal_form: legalForm
         }).then(res => {
+            setGlobalState('username', res.data.full_name)
             localStorage.setItem('name', res.data.full_name)
             message.success('Данные успешно обновлены.');
             setLoading(false)
@@ -118,8 +114,8 @@ const ProfilePage = () => {
                             ]}
                         >
                             <Input placeholder="+7 999 999 99 99"
-                                   maxLength={12}
-                                   value={currentUser.mobile}
+                                maxLength={12}
+                                value={currentUser.mobile}
                                 onChange={e => setCurrentUser({ ...currentUser, mobile: e.target.value })} />
                         </Form.Item>
 

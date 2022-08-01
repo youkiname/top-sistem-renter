@@ -6,6 +6,7 @@ import { validationSchema } from "./validationSchema";
 import { Title, Text, Wrapper, WrapperForm, WrapperTitle } from "./style";
 import { useNavigate } from 'react-router-dom';
 import { authController } from "../../api";
+import { setGlobalState } from '../../GlobalState';
 import img1 from "../../images/login-page-1.svg";
 import img2 from "../../images/login-page-2.svg";
 import img4 from "../../images/login-page-4.svg";
@@ -14,33 +15,32 @@ export const AuthPage = () => {
     const navigate = useNavigate();
     const [showVerify, setShowVerify] = React.useState(false);
 
-    const onSubmit = (values, formik) => {
-        authController.getVerifyCode({
-            email: values.email,
-            password: values.password
-
-        }).then(res => {
-            formik.setValues({ ...values, code: res.data })
-            console.log(res.data)
-        })
-
-        authController.applyCsrfCookie()
-        authController.getAuth(values).then(res => {
-            localStorage.setItem("token-renter", res.data.token);
-            localStorage.setItem("name", `${res.data.first_name} ${res.data.last_name}`);
-            navigate('/');
-        })
-            .catch((error) => {
-                const email = error?.response?.data?.errors?.email[0]
-                const password = error?.response?.data?.errors?.password[0]
-                if (email || password) {
-                    formik.setErrors({ email: "Неправильный логин или пароль" })
-                }
-            })
-        setShowVerify(true);
-
+    const setAuthState = (username, token) => {
+        localStorage.setItem('token-renter', token);
+        localStorage.setItem("name", username);
+        setGlobalState('username', username)
+        setGlobalState('loggedIn', true)
     }
-    const { errors, handleChange, isValid, handleSubmit, setErrors } = useFormik({
+
+    const onSubmit = (values, formik) => {
+        if (showVerify) {
+            console.log(values)
+            return
+        }
+
+        authController.getAuth(values).then(res => {
+            if (res.data.two_factor_auth) {
+                setShowVerify(true);
+                return
+            }
+            setAuthState(res.data.full_name, res.data.token);
+
+            navigate('/');
+        }).catch((error) => {
+            formik.setErrors({ email: "Неправильный логин или пароль" })
+        })
+    }
+    const { errors, handleChange, isValid, handleSubmit } = useFormik({
         initialValues: {
             email: "",
             password: "",
@@ -48,7 +48,6 @@ export const AuthPage = () => {
         },
         onSubmit,
         validationSchema,
-        isInitialValid: false
     })
 
     return (
@@ -85,34 +84,44 @@ export const AuthPage = () => {
             </Wrapper>
             <WrapperForm>
                 <img src={img4} alt="img1" />
-                <Form style={{ width: '30%' }}>
+                <Form
+                    style={{ width: '30%' }}
+                    onFinish={handleSubmit}
+                >
                     <Form.Item
                         name="email"
                         validateStatus={errors.email && ValidationStatus.ERROR}
                         help={errors?.email}
-
                     >
                         <Input placeholder="E-mail" onChange={handleChange} />
                     </Form.Item>
+
                     <Form.Item
                         name="password"
                         validateStatus={errors.password && ValidationStatus.ERROR}
                         help={errors?.password}
-
                     >
-
                         <Input placeholder="Пароль" type="password" onChange={handleChange} />
                     </Form.Item>
-                    <Form.Item label="">
-                        <Button onClick={() => handleSubmit()} disabled={!isValid} style={{ width: '100%' }}>
-                            Войти
-                        </Button>
-                    </Form.Item>
+
                     {
-                        showVerify && <Form.Item>
+                        showVerify &&
+                        <Form.Item>
                             <Input placeholder="Введите код подтверждения" style={{ width: '100%' }} type="primary" />
                         </Form.Item>
                     }
+
+                    <Form.Item>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            disabled={!isValid}
+                            style={{ width: '100%' }}
+                        >
+                            Войти
+                        </Button>
+                    </Form.Item>
+
                     <img src={img2} alt="img1" />
                 </Form>
             </WrapperForm>

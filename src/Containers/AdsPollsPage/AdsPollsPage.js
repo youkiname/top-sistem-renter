@@ -27,7 +27,7 @@ const AdsPollsPage = () => {
         setLoading(true)
         apiController.toggleActivePollState(poll.id, poll.is_active).then(res => {
             const updatedPolls = polls.map(item => {
-                if (item.id == poll.id) {
+                if (item.id === poll.id) {
                     item.is_active = !item.is_active
                 }
                 return item

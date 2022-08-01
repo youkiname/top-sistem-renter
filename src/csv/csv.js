@@ -25,8 +25,14 @@ class Csv {
 
     download(columns, data) {
         const content = this.make(columns, data)
-        const encodedUri = encodeURI(content);
-        window.open(encodedUri);
+        var encodedUri = encodeURI(content);
+
+        const element = document.createElement("a");
+        // const file = new Blob([content], { type: 'text/csv' });
+        element.href = encodedUri;
+        element.download = "statistic.csv";
+        document.body.appendChild(element); // Required for this to work in FireFox
+        element.click();
     }
 }
 

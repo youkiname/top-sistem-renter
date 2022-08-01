@@ -1,7 +1,7 @@
 import { BaseController } from "./baseController";
 
 export class AuthController extends BaseController {
-    getVerifyCode(params) {
+    verifyTwoFactorAuth(params) {
         return this.instance.get('auth/verify', {
             params
         })
