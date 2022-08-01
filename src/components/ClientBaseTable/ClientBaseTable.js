@@ -4,6 +4,8 @@ import Search from "antd/es/input/Search";
 import { FileExcelOutlined } from "@ant-design/icons";
 import { apiController } from "../../api";
 import { CSV } from "../../csv/csv";
+import { CSVLink } from "react-csv";
+
 
 const { Title } = Typography
 
@@ -54,7 +56,7 @@ const ClientBaseTable = () => {
     }
 
     const downloadCsv = () => {
-        CSV.download(columns, searched)
+        <CSVLink data={searched} target="_blank"/>
     }
 
     return (

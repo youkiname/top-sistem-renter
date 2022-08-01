@@ -20,7 +20,6 @@ export const AddArendatorPage = () => {
     const [Email, setEmail] = React.useState()
     const [Password, setPassword] = React.useState()
     const [birthdate, setBirthDate] = React.useState()
-
     const onSubmit = () => {
 
         apiController.addSeller({
@@ -30,11 +29,11 @@ export const AddArendatorPage = () => {
             email: Email,
             password: Password,
             birth_date: birthdate,
+
         }).then(() => navigate("../sellers"))
 
         .catch((error) => {
-
-            if (error.response.status == 409) {
+                if (error.response.status == 409) {
                 message.error("Email уже занят" )
             }
         })
